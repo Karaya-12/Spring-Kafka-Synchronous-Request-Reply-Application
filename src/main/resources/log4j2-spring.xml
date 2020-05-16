@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="INFO" monitorInterval="5">  <!-- monitorInterval: Seconds Between 2 Monitoring Checks -->
+    <!-- Logging Level: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+
+    <Properties>
+        <!-- Log Custom Pattern Settings -->
+        <!-- %-5level: The level of the logging event should be left justified to a width of 5 characters (%p: Log Level) -->
+        <!-- %c: Name of the Class Generated the Msg, %L: Line in Source Code -->
+        <!-- %logger{36}: Log Name Max Length 36, %msg: Log Message, %n: Line Break -->
+        <property name="LOG_PATTERN" value="%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] [%p] [%c:%L] - %msg%n"/>
+
+        <!-- Log Local Path -->
+        <property name="FILE_PATH" value="/home/karaya_12/Coding/Log"/>
+        <property name="FILE_NAME" value="Demo_Log"/>
+    </Properties>
+
+
+    <appenders>
+        <console name="LogToConsole" target="SYSTEM_OUT">
+            <!-- Output Log Pattern -->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+
+            <!-- Console Only Output Log Level Above ${level} (onMatch), Deny Others (onMismatch) -->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>  <!-- Set to 'INFO' Level-->
+        </console>
+
+        <!-- Temp Test File Logging -->
+        <File name="LogToFile" fileName="${FILE_PATH}/SystemTestLog.log" append="false">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </File>
+
+        <!-- Print All Log Under 'TRACE' Level, Trigger Compressing & Saving Process When Log Size is Over ${size} -->
+        <RollingFile name="RollingFileTrace" fileName="${FILE_PATH}/TRACE.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-Trace-%d{dd-MM-yyyy}_%i.log.gz">
+            <!-- Console Only Output Log Level Above ${level} (onMatch), Deny Others (onMismatch) -->
+            <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>  <!-- Default Interval -->
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+
+        <!-- Print All Log Under 'DEBUG' Level, Trigger Compressing & Saving Process When Log Size is Over ${size} -->
+        <RollingFile name="RollingFileDebug" fileName="${FILE_PATH}/DEBUG.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-Debug-%d{dd-MM-yyyy}_%i.log.gz">
+            <!-- Console Only Output Log Level Above ${level} (onMatch), Deny Others (onMismatch) -->
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>  <!-- Default Interval -->
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+
+        <!-- Print All Log Under 'INFO' Level, Trigger Compressing & Saving Process When Log Size is Over ${size} -->
+        <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/INFO.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{dd-MM-yyyy}_%i.log.gz">
+            <!-- Console Only Output Log Level Above ${level} (onMatch), Deny Others (onMismatch) -->
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>  <!-- Default Interval -->
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+
+        <!-- Print All Log Under 'WARN' Level, Trigger Compressing & Saving Process When Log Size is Over ${size} -->
+        <RollingFile name="RollingFileWarn" fileName="${FILE_PATH}/WARN.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-WARN-%d{yyyy-MM-dd}_%i.log.gz">
+            <!-- Console Only Output Log Level Above ${level} (onMatch), Deny Others (onMismatch) -->
+            <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>  <!-- Default Interval -->
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+
+        <!-- Print All Log Under 'ERROR' Level, Trigger Compressing & Saving Process When Log Size is Over ${size} -->
+        <RollingFile name="RollingFileError" fileName="${FILE_PATH}/ERROR.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-ERROR-%d{yyyy-MM-dd}_%i.log.gz">
+            <!-- Console Only Output Log Level Above ${level} (onMatch), Deny Others (onMismatch) -->
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>  <!-- Default Interval -->
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+
+        <!-- TODO -->
+        <!-- Pass to Logstash Socket-->
+        <!-- <Socket name="Logstash" host="192.168.76.128" port="5602" protocol="TCP">-->
+        <!-- <PatternLayout pattern="${PATTERN}"/>-->
+        <!-- </Socket>-->
+    </appenders>
+
+
+    <!-- Set Specific Log Pattern -->
+    <loggers>
+        <!-- Filter Out Unwanted Spring Framework & MyBatis Debug Info -->
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <logger name="org.mybatis" level="INFO" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </logger>
+
+        <!-- Async Logger Setting -->
+        <AsyncLogger name="com.karaya" level="INFO" includeLocation="false">
+            <AppenderRef ref="LogToConsole"/>
+            <AppenderRef ref="RollingFileInfo"/>
+            <AppenderRef ref="RollingFileWarn"/>
+            <AppenderRef ref="RollingFileError"/>
+
+            <!-- TODO -->
+            <AppenderRef ref="LogToFile"/>  <!-- Test Use, Print All to File -->
+            <!-- <AppenderRef ref="Logstash"/> -->
+        </AsyncLogger>
+
+        <AsyncRoot level="INFO">
+            <!--            <AppenderRef ref="LogToConsole"/>-->
+            <!--            <AppenderRef ref="RollingFileInfo"/>-->
+            <!--            <AppenderRef ref="RollingFileWarn"/>-->
+            <!--            <AppenderRef ref="RollingFileError"/>-->
+        </AsyncRoot>
+    </loggers>
+
+</configuration>
