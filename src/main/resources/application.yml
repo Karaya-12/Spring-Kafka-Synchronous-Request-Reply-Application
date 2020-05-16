@@ -38,10 +38,10 @@ spring:
 kafka:
   group:
     id: RequestReplyDemoGroup
-  reply:
-    topic: StudentReplyResult
   request:
     topic: StudentRequest
+  reply:
+    topic: StudentReplyResult
 
 # Log4j Configuration Path
 logging:
