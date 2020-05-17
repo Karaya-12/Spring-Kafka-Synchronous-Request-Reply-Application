@@ -1,0 +1,45 @@
+# IntelliJ IDEA
+target/
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# Compiled Class File
+*.class
+
+# Log File
+*.log
+
+# Temp Ignore
+*.cache
+*.diff
+*.patch
+*.tmp
+*.java~
+*.properties~
+*.xml~
+
+# BlueJ Files
+*.ctxt
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Java Virtual Machine Crash Logs
+hs_err_pid*
