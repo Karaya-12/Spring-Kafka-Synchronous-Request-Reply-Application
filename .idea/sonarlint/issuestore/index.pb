@@ -11,3 +11,7 @@ n
 >src/main/java/com/karaya/kafka/controller/KafkaController.java,7/4/7464bc1fa2ebbd4d234b130d92bbde5b529b2f32
 f
 6src/main/java/com/karaya/kafka/config/KafkaConfig.java,6/5/6576e08fbe0b50b5bb7e00a8c895877e87f96563
+a
+1src/main/java/com/karaya/kafka/model/Student.java,a/b/ab76ca8abf329a50014e15eb7b491a4b553c67e7
+R
+"src/main/resources/application.yml,a/6/a6d8b8556fee0e03112ce2bf34b8cb27a7dc9e58

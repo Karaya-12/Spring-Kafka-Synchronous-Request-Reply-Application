@@ -93,24 +93,15 @@
             </Policies>
             <DefaultRolloverStrategy max="15"/>
         </RollingFile>
-
-        <!-- TODO -->
-        <!-- Pass to Logstash Socket-->
-        <!-- <Socket name="Logstash" host="192.168.76.128" port="5602" protocol="TCP">-->
-        <!-- <PatternLayout pattern="${PATTERN}"/>-->
-        <!-- </Socket>-->
     </appenders>
 
 
     <!-- Set Specific Log Pattern -->
     <loggers>
-        <!-- Filter Out Unwanted Spring Framework & MyBatis Debug Info -->
+        <!-- Filter Out Unwanted Spring Framework Debug Info -->
         <Logger name="org.springframework" level="INFO" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <logger name="org.mybatis" level="INFO" additivity="false">
-            <AppenderRef ref="LogToConsole"/>
-        </logger>
 
         <!-- Async Logger Setting -->
         <AsyncLogger name="com.karaya" level="INFO" includeLocation="false">
@@ -119,16 +110,11 @@
             <AppenderRef ref="RollingFileWarn"/>
             <AppenderRef ref="RollingFileError"/>
 
-            <!-- TODO -->
             <AppenderRef ref="LogToFile"/>  <!-- Test Use, Print All to File -->
-            <!-- <AppenderRef ref="Logstash"/> -->
         </AsyncLogger>
 
         <AsyncRoot level="INFO">
-            <!--            <AppenderRef ref="LogToConsole"/>-->
-            <!--            <AppenderRef ref="RollingFileInfo"/>-->
-            <!--            <AppenderRef ref="RollingFileWarn"/>-->
-            <!--            <AppenderRef ref="RollingFileError"/>-->
+            <!-- Place Holder -->
         </AsyncRoot>
     </loggers>
 

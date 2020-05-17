@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * @author Karaya_12
- * Accept posted Student details and passed that information to the Kafka server to get the calculated result.
+ * Accept posted Student details and pass the information to the Kafka server to get the calculated result.
  */
 @Slf4j
 @RestController
@@ -40,7 +40,7 @@ public class KafkaController {
 
     /**
      * Expect: 'Student' Object
-     * Return: Calculated 'Result' Details
+     * Return: Calculated 'Result' Object
      */
     @PostMapping(value = "/getResult")
     public ResponseEntity<Result> getObject(@RequestBody Student student)
