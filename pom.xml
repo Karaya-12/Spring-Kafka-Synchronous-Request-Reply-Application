@@ -29,7 +29,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<java.version>13</java.version>
-		<log4j.version>2.13.3</log4j.version>
+		<log4j.version>2.16.0</log4j.version>
 
 		<maven.compiler.source>13</maven.compiler.source>
 		<maven.compiler.target>13</maven.compiler.target>
